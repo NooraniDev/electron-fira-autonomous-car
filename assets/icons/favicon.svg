@@ -3,16 +3,13 @@
     <rect x="1" y="1" width="62" height="62" rx="13" stroke="#1e2735" stroke-width="2"/>
     <g stroke="#60a5fa" stroke-width="2.2">
         <ellipse cx="32" cy="32" rx="23" ry="9.5"/>
-        <ellipse cx="32" cy="32" rx="23" ry="9.5" transform="rotate(15 32 32)"/>
         <ellipse cx="32" cy="32" rx="23" ry="9.5" transform="rotate(30 32 32)"/>
-        <ellipse cx="32" cy="32" rx="23" ry="9.5" transform="rotate(45 32 32)"/>
         <ellipse cx="32" cy="32" rx="23" ry="9.5" transform="rotate(60 32 32)"/>
-        <ellipse cx="32" cy="32" rx="23" ry="9.5" transform="rotate(75 32 32)"/>
         <ellipse cx="32" cy="32" rx="23" ry="9.5" transform="rotate(90 32 32)"/>
-        <ellipse cx="32" cy="32" rx="23" ry="9.5" transform="rotate(105 32 32)"/>
         <ellipse cx="32" cy="32" rx="23" ry="9.5" transform="rotate(120 32 32)"/>
-        <ellipse cx="32" cy="32" rx="23" ry="9.5" transform="rotate(135 32 32)"/>
         <ellipse cx="32" cy="32" rx="23" ry="9.5" transform="rotate(150 32 32)"/>
+        <ellipse cx="32" cy="32" rx="23" ry="9.5" transform="rotate(150 32 32)"/>
+
         
         
         
