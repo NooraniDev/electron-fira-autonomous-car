@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="assets/icons/favicon.svg" width="72" height="72" alt="ELECTRON mark">
+<img src="assets/icons/favicon.svg" width="68" height="68" alt="ELECTRON mark">
 
 # ELECTRON
 
@@ -8,277 +8,126 @@
 
 **2nd Place — Iran National FIRA Competition** · **Qualified — FIRA International Competition**
 
-[**English Documentation**](docs/en/overview.md) · [**مستندات فارسی**](docs/fa/overview.md) · [**English Section**](#1-project-overview) · [**بخش فارسی**](#فارسی--persian)
+[**Overview**](docs/overview.md) · [**Achievements**](docs/achievements.md) · [**Hardware**](docs/hardware.md) · [**Architecture**](docs/architecture.md) · [**Team**](docs/team.md)
 
 </div>
 
 ---
-
-## Portfolio Website & Language Links
-
-This repository powers the bilingual (**English / Persian**) engineering portfolio website for the **ELECTRON** autonomous mobile robotics team.
-
-| Version | Website Entry Point | Technical Documentation |
-| :--- | :--- | :--- |
-| **Default (configured in `js/config.js`)** | [`index.html`](index.html) | [`docs/en/overview.md`](docs/en/overview.md) |
-| **English (LTR)** | [`index.html?lang=en`](index.html?lang=en) | [`docs/en/`](docs/en/overview.md) |
-| **Persian / فارسی (RTL)** | [`index.html?lang=fa`](index.html?lang=fa) | [`docs/fa/`](docs/fa/overview.md) |
-
-> **Deployment URL Notice:** Once GitHub Pages (or a custom domain) is enabled and confirmed, replace the relative links above or set `siteUrl` in [`js/config.js`](js/config.js) for canonical and Open Graph URLs.
-
----
-
-## Primary Robot Photograph
 
 <div align="center">
 
-<img src="assets/images/robot-hero.png" width="540" alt="The ELECTRON autonomous mobile robot developed for the FIRA Robotics Competition">
-
-*Primary robot photograph path: [`assets/images/robot-hero.png`](assets/images/README.md) (`1:1` square aspect ratio, recommended `2048 × 2048` px).*
+<img src="assets/images/robot-hero.png" width="560" alt="The ELECTRON autonomous mobile robot">
 
 </div>
 
 ---
 
-## Competition Achievements
+## 1. Platform Overview
 
-| Level | Achievement | Competition |
+**ELECTRON** is an autonomous mobile robotics platform engineered for the **FIRA Robotics Competition**. It integrates onboard computer vision, fiducial marker decoding, real-time decision-making, and deterministic embedded control into an untethered mobile robot capable of operating without human intervention.
+
+| Tier | Standing | Competition |
 | :--- | :--- | :--- |
-| **National — Iran** | **SECOND PLACE (2nd Place)** | Iran National FIRA Robotics Competition |
-| **International** | **QUALIFIED** | FIRA International Competition |
+| **National — Iran** | **2nd Place** | Iran National FIRA Robotics Competition |
+| **International** | **Qualified** | FIRA International Competition |
 
-> **Competition Distinction:** This project was developed specifically for the **FIRA Robotics Competition**. It is completely separate from and unrelated to the WorldSkills / National Skills Autonomous Mobile Robotics competition. Competition year, edition, and exact league designation are marked as _Pending verification_ until confirmed by the team.
+### Core Engineering Domains
 
----
-
-## 1. Project Overview
-
-**ELECTRON** is an autonomous mobile robot engineered to compete in the **FIRA Robotics Competition**. It integrates onboard computer vision, image processing, embedded control, and proximity sensing into a self-directed mobile platform capable of perceiving its surroundings, interpreting visual cues, and executing controlled motion without human intervention.
-
-### Autonomy Objectives
-1. Perceive the competition environment through onboard vision and obstacle sensing.
-2. Recognize visual fiducial markers and objects relevant to navigation and traffic-related instructions.
-3. Make autonomous navigation decisions in real time on the primary computing platform.
-4. Translate high-level decisions into deterministic, precise motor and servo actuation.
-5. Operate reliably as an untethered platform under real competition constraints.
-
-### Engineering Domains
-`Autonomous Robotics` · `Computer Vision` · `Image Processing` · `Embedded Systems` · `Sensor Integration` · `Robotic Navigation` · `Object Recognition` · `Hardware/Software Integration`
+`Autonomous Robotics` · `Computer Vision` · `Image Processing` · `Embedded Systems` · `Sensor Integration` · `Robotic Navigation` · `Object Recognition` · `Hardware / Software Integration`
 
 ---
 
-## 2. Team
+## 2. System Architecture
 
-| Name | Persian Name | Role | Specific Responsibilities |
-| :--- | :--- | :--- | :--- |
-| **Amirali Noorani** | امیرعلی نورانی | Team Member | _Pending verification_ |
-| **Matin Fakhim** | متین فخیم | Team Member | _Pending verification_ |
-| **Hamidreza Ramezani** | حمیدرضا رمضانی | Coach | _Pending verification_ |
+![ELECTRON High-Level System Architecture](assets/diagrams/architecture.svg)
+
+1. **Sensing** — The Raspberry Pi Camera and obstacle detection sensor capture visual and proximity state from the competition course.
+2. **Vision Processing (Raspberry Pi 5 · 16 GB)** — Frames are filtered and analyzed using Python, OpenCV, YOLO object detection, and AprilTag fiducial recognition.
+3. **Decision-Making (Raspberry Pi 5 · 16 GB)** — Perception outputs are evaluated in real time to select navigation actions.
+4. **Embedded Control (Arduino Uno)** — High-level navigation commands are translated into deterministic PWM and motor control signals.
+5. **Actuation (L298 & Servo Motor)** — Drive motors and the steering servo execute propulsion and directional geometry, powered by the onboard **Li-ion Battery System** and **DC-DC Voltage Regulation** bus.
 
 ---
 
-## 3. Personal Engineering Contributions — Amirali Noorani
+## 3. Hardware Stack
 
-This portfolio highlights the participation and engineering contributions of **Amirali Noorani** to the **ELECTRON** autonomous mobile robot. Candidate contribution areas below are clearly marked for review until verified:
-
-| # | Contribution Category | Verification Status |
+| Subsystem | Category | Role |
 | :--- | :--- | :--- |
-| 01 | Robotics Software Development | _Pending verification_ |
-| 02 | Computer Vision | _Pending verification_ |
-| 03 | Image Processing | _Pending verification_ |
-| 04 | Raspberry Pi Integration | _Pending verification_ |
-| 05 | Embedded Systems | _Pending verification_ |
-| 06 | Hardware/Software Integration | _Pending verification_ |
-| 07 | System Testing | _Pending verification_ |
-| 08 | Debugging & Optimization | _Pending verification_ |
+| **Raspberry Pi 5 (16 GB)** | Primary Compute | Central single-board computer executing camera capture, image processing, vision inference, and high-level navigation decisions. |
+| **Raspberry Pi Camera** | Optical Sensor | Captures the live forward visual stream for marker recognition, object detection, and path tracking. |
+| **Arduino Uno** | Embedded Controller | Microcontroller dedicated to deterministic, time-critical control loops and actuator signal generation. |
+| **L298 Motor Driver** | Motor Power Stage | Dual H-bridge power stage converting low-current logic signals into regulated current for drive motor speed and direction. |
+| **Servo Motor** | Precision Actuator | Closed-loop rotary actuator providing accurate angular steering positioning. |
+| **Li-ion Battery System** | Energy Storage | Rechargeable lithium-ion battery pack enabling untethered autonomous operation. |
+| **DC-DC Voltage Regulation** | Power Conditioning | Stabilizes battery voltage into clean supply rails for compute, sensing, and control electronics. |
+| **Obstacle Detection Sensor** | Proximity Sensing | Detects physical obstacles in the robot's path for collision-safe navigation. |
 
 ---
 
-## 4. Hardware Architecture
+## 4. Software & Perception
 
-| Component | Subsystem | Role & System Relationship |
+| Technology | Category | Role |
 | :--- | :--- | :--- |
-| **Raspberry Pi 5 (16 GB)** | Main Computing Platform | Primary processing unit running image acquisition, image processing, computer-vision inference, and autonomous decision-making; receives camera frames and sends high-level commands to the Arduino Uno. |
-| **Raspberry Pi Camera** | Vision Sensor | Captures live visual frames of the robot's environment and feeds the Raspberry Pi 5 perception pipeline. |
-| **Arduino Uno** | Embedded Controller | Dedicated microcontroller handling deterministic, time-critical actuation between the Raspberry Pi 5 and the motor/servo stages. |
-| **L298 Motor Driver** | Motor Power Stage | Dual H-bridge driver converting low-power control signals from the Arduino Uno into controlled current for drive motor speed and direction. |
-| **Servo Motor** | Precision Actuator | Position-controlled actuator driven by the Arduino Uno for accurate angular positioning. |
-| **Li-ion Battery System** | Energy Source | Rechargeable onboard lithium-ion battery pack supplying untethered energy for competition runs. |
-| **DC-DC Voltage Regulation** | Power Conditioning | Converts battery voltage into stable supply rails for computing, sensing, and control electronics under varying motor loads. |
-| **Obstacle Detection Sensor** | Proximity Sensing | Detects physical obstacles in the robot's path, providing a camera-independent sensing layer for collision-aware navigation. |
-
-> _Note: Component relationships are conceptual. Exact electrical schematics are intentionally omitted, and the final competition hardware configuration is marked for team confirmation._
+| **Python** | Core Runtime | Orchestrates camera acquisition, vision inference, and autonomous decision-making on the Raspberry Pi 5. |
+| **OpenCV** | Vision Library | Frame capture, geometric transformation, filtering, and classical computer-vision operations. |
+| **YOLO** | Deep Learning | Real-time neural object detection within the live camera stream. |
+| **AprilTag (`36h11`)** | Fiducial Localization | Standardized visual fiducial markers (`36h11` family, IDs `0–5`, `0.05 m` tag size) decoded for navigation directives and traffic-related instructions. |
+| **Image Processing** | Signal Pipeline | Frame preprocessing, noise reduction, and feature extraction prior to downstream inference. |
+| **Embedded Systems** | Deterministic I/O | Low-level firmware on the Arduino Uno managing PWM generation and motor driver interfacing. |
 
 ---
 
-## 5. Software & Technologies
+## 5. Team & Engineering
 
-| Technology | Category | Role in the Robot |
-| :--- | :--- | :--- |
-| **Python** | Programming Language | Primary language for high-level perception, decision-making, and system coordination on the Raspberry Pi 5. |
-| **OpenCV** | Vision Library | Frame capture, preprocessing, filtering, and classical computer-vision operations. |
-| **YOLO** | Object Detection | Real-time deep-learning object recognition within the camera stream. |
-| **Computer Vision** | Perception | Scene interpretation and standardized **AprilTag** fiducial marker recognition (`36h11` family) for navigation and traffic-related instructions. |
-| **Image Processing** | Signal Processing | Transforming raw camera frames into clean, actionable representations. |
-| **Embedded Systems** | Real-Time Control | Microcontroller software on the Arduino Uno for deterministic motor and servo timing. |
-| **Autonomous Robotics** | System Integration | Closed-loop coordination of perception, decision-making, and actuation without human intervention. |
+| Name | Role |
+| :--- | :--- |
+| **Amirali Noorani** | Team Member |
+| **Matin Fakhim** | Team Member |
+| **Hamidreza Ramezani** | Team Coach |
 
----
+### Engineering Focus — Amirali Noorani
 
-## 6. High-Level System Architecture
-
-![ELECTRON High-Level Conceptual Architecture](assets/diagrams/architecture.svg)
-
-```text
-[ Camera & Obstacle Sensor ]
-             │
-             ▼
-┌────────────────────────────────────────────────────────┐
-│ Main Computing Platform · Raspberry Pi 5 (16 GB)       │
-│   [ Image Processing ]  ───►  [ Decision-Making ]      │
-└────────────────────────────────────────────────────────┘
-             │
-             ▼
-[ Embedded Control · Arduino Uno ]
-             │
-             ▼
-[ Actuation · L298 Motor Driver + Drive Motors + Servo ]
-             │
-             └───► Closed perception–action loop through the environment
-```
-
-**Power Subsystem:** The **Li-ion Battery System** and **DC-DC Voltage Regulation** supply stable onboard energy across all computing, sensing, control, and actuation stages.
+`Robotics Software Development` · `Computer Vision & Object Recognition` · `Image Processing Pipelines` · `Raspberry Pi 5 System Integration` · `Embedded Control Interfacing` · `Hardware / Software Co-Design` · `System Testing & Calibration` · `Debugging & Runtime Optimization`
 
 ---
 
-## 7. Engineering Challenges
-
-The following engineering challenge categories are tracked and will be populated with confirmed competition-safe details upon verification by the team:
-
-1. **Sensor Reliability** — _Pending verification_
-2. **Navigation** — _Pending verification_
-3. **Environmental Interference** — _Pending verification_
-4. **Computer Vision Performance** — _Pending verification_
-5. **Real-Time Processing** — _Pending verification_
-6. **Hardware Integration** — _Pending verification_
-7. **System Stability** — _Pending verification_
-
----
-
-## 8. Central Language Configuration (`js/config.js`)
-
-The default language of the entire website is controlled by **one single variable** in [`js/config.js`](js/config.js):
-
-```javascript
-const SITE_CONFIG = Object.freeze({
-    defaultLanguage: "en",
-    siteUrl: ""
-});
-```
-
-- Set `defaultLanguage: "en"` for **English (LTR)** as the default.
-- Set `defaultLanguage: "fa"` for **Persian / Farsi (RTL)** as the default.
-
-### Language Resolution Priority
-1. **`?lang=en` or `?lang=fa` URL query parameter** (for direct shareable language links; does not overwrite saved preference).
-2. **Visitor's saved preference** (`localStorage` key `electron.lang`, set when clicking the language switcher).
-3. **`SITE_CONFIG.defaultLanguage`** in `js/config.js` when no saved visitor preference exists.
-
-To reset a saved visitor preference during testing: click **"Reset language preference"** in the website footer, open `?resetLang=1`, or run `ElectronI18n.reset()` in the browser console.
-
----
-
-## 9. Repository Structure
+## 6. Repository Structure
 
 ```text
 electron-fira-autonomous-car/
-├── index.html                  # Complete bilingual single-page portfolio (EN / FA)
-├── README.md                   # Bilingual GitHub showcase README
-├── LICENSE-NOTICE.md           # Confidentiality & intellectual property notice
-├── .gitignore                  # Excludes secrets, OS artifacts, and robot weights/code
-├── .nojekyll                   # Serves static assets directly on GitHub Pages
-├── robots.txt                  # Search engine crawler rules
-├── sitemap.xml                 # Bilingual sitemap template
+├── index.html                  # Portfolio website entry point (English · LTR)
+├── css/
+│   └── style.css               # Dark Professional Engineering design system
+├── js/
+│   └── app.js                  # Navigation, scroll spy, reveal motion, and image viewer
 ├── assets/
 │   ├── images/
-│   │   ├── README.md           # Placement specs for robot-hero.png (1:1, 2048×2048)
-│   │   └── robot-hero.png      # Primary robot photograph (supplied by the team)
-│   ├── fonts/                  # Local Inter & Vazirmatn variable WOFF2 fonts + OFL licenses
-│   ├── icons/
-│   │   └── favicon.svg         # ELECTRON vector emblem
-│   └── diagrams/
-│       └── architecture.svg    # High-level conceptual architecture diagram
-├── css/
-│   └── style.css               # Dark Professional Engineering design system (LTR & RTL)
-├── js/
-│   ├── config.js               # Single central default-language configuration
-│   ├── translations.js         # Complete English & Persian translation dictionaries
-│   └── app.js                  # Bilingual engine, navigation, media fallback & viewer
+│   │   ├── robot-hero.png      # Primary 1:1 studio photograph of the ELECTRON robot
+│   │   └── robot-hero.jpg      # Compressed studio photograph
+│   ├── diagrams/
+│   │   └── architecture.svg    # High-level conceptual system architecture diagram
+│   ├── fonts/                  # Bundled Inter variable font (WOFF2 + SIL OFL 1.1)
+│   └── icons/
+│       └── favicon.svg         # ELECTRON orbital emblem
 ├── docs/
-│   ├── en/                     # English technical documentation
-│   │   ├── overview.md
-│   │   ├── achievements.md
-│   │   ├── hardware.md
-│   │   ├── architecture.md
-│   │   └── team.md
-│   └── fa/                     # Persian technical documentation (مستندات فارسی)
-│       ├── overview.md
-│       ├── achievements.md
-│       ├── hardware.md
-│       ├── architecture.md
-│       └── team.md
-└── .github/
-    └── workflows/
-        └── pages.yml           # Official static GitHub Pages deployment workflow
+│   ├── overview.md             # Platform overview
+│   ├── achievements.md         # Competition standing
+│   ├── hardware.md             # Hardware subsystem specifications
+│   ├── architecture.md         # Software & perception architecture
+│   └── team.md                 # Team roster & engineering focus
+├── .github/
+│   └── workflows/
+│       └── pages.yml           # GitHub Actions static deployment workflow
+├── LICENSE-NOTICE.md           # Confidentiality & intellectual property notice
+├── robots.txt                  # Crawler directives
+└── sitemap.xml                 # XML sitemap
 ```
 
 ---
 
-## 10. Confidentiality Notice
+## 7. Confidentiality Notice
 
-> **Important:** The source code, computer-vision pipelines, trained models, control logic, and proprietary implementation details of the **ELECTRON** robot are **intentionally not published** due to competition confidentiality requirements. See [`LICENSE-NOTICE.md`](LICENSE-NOTICE.md) for full details.
-
----
-
-<div dir="rtl" align="right">
-
-# فارسی — Persian
-
-## ELECTRON — رباتیک متحرک خودران FIRA
-
-- **مقام دوم** — مسابقات ملی رباتیک FIRA ایران (`Second Place — National Competition, Iran`)
-- **راه‌یافته** — مسابقات بین‌المللی FIRA (`Qualified — FIRA International Competition`)
-
-> **توجه مهم درباره‌ی تمایز مسابقات:** این پروژه منحصراً برای **مسابقات رباتیک FIRA** طراحی و توسعه داده شده است و هیچ ارتباطی با مسابقات ملی مهارت یا مسابقات جهانی مهارت (`WorldSkills`) ندارد.
-
-### معرفی پروژه
-
-ربات متحرک خودران **ELECTRON** توسط تیم مهندسی **ELECTRON** برای شرکت در **مسابقات رباتیک FIRA** طراحی و ساخته شده است. این ربات بینایی ماشین، پردازش تصویر، سامانه‌های نهفته و ناوبری مبتنی بر حسگر را در یک سکوی خودگردان یکپارچه می‌کند تا بدون دخالت انسان محیط مسابقه را درک کرده، نشانگرها و اشیا را تشخیص دهد و حرکتی دقیق و کنترل‌شده را اجرا نماید.
-
-### اعضای تیم
-
-- **امیرعلی نورانی** (`Amirali Noorani`) — عضو تیم (_مسئولیت‌ها در انتظار تأیید_)
-- **متین فخیم** (`Matin Fakhim`) — عضو تیم (_مسئولیت‌ها در انتظار تأیید_)
-- **حمیدرضا رمضانی** (`Hamidreza Ramezani`) — مربی (_مسئولیت‌ها در انتظار تأیید_)
-
-### سخت‌افزار و فناوری‌ها
-
-- **سخت‌افزار:** برد پردازش اصلی `Raspberry Pi 5 (16 GB)`، دوربین `Raspberry Pi Camera`، کنترل‌گر نهفته `Arduino Uno`، درایور موتور `L298`، سروو موتور (`Servo Motor`)، سامانه‌ی باتری لیتیوم-یون (`Li-ion Battery System`)، تنظیم ولتاژ `DC-DC` و حسگر تشخیص مانع (`Obstacle Detection Sensor`).
-- **نرم‌افزار و فناوری‌ها:** `Python`، `OpenCV`، `YOLO`، بینایی ماشین (`Computer Vision`)، نشانگرهای تصویری `AprilTag` (خانواده‌ی `36h11`)، پردازش تصویر (`Image Processing`)، سامانه‌های نهفته (`Embedded Systems`) و رباتیک خودران (`Autonomous Robotics`).
-
-### مستندات کامل فارسی
-
-- [معرفی پروژه](docs/fa/overview.md)
-- [افتخارات مسابقات](docs/fa/achievements.md)
-- [معماری سخت‌افزار](docs/fa/hardware.md)
-- [نرم‌افزار و معماری سامانه](docs/fa/architecture.md)
-- [تیم و مشارکت‌های فردی](docs/fa/team.md)
-
-### اطلاعیه‌ی محرمانگی
-
-کد منبع، الگوریتم‌ها و جزئیات اختصاصی پیاده‌سازی ربات **ELECTRON** به دلیل الزامات محرمانگی مسابقه عمداً منتشر نشده‌اند. برای جزئیات بیشتر به فایل [`LICENSE-NOTICE.md`](LICENSE-NOTICE.md) مراجعه فرمایید.
-
-</div>
+In accordance with FIRA competition confidentiality requirements, the robot's source code, trained model weights, control parameters, and proprietary competition strategies are intentionally withheld from this repository. See [`LICENSE-NOTICE.md`](LICENSE-NOTICE.md) for full details.
 
 ---
 
