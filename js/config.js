@@ -23,6 +23,6 @@
  *  canonical, hreflang and absolute Open Graph URLs are generated.
  */
 const SITE_CONFIG = Object.freeze({
-    defaultLanguage: "en",
+    defaultLanguage: "fa",
     siteUrl: ""
 });
