@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+    <!-- Metadata (English fallback — localized at runtime by js/app.js) -->
+    <title>ELECTRON — FIRA Autonomous Mobile Robotics | 2nd Place, Iran National Competition</title>
+    <meta name="description" content="ELECTRON is a robotics engineering team that designed and built an autonomous mobile robot for the FIRA Robotics Competition. Second place at the Iran National FIRA Competition and qualified for the FIRA International Competition.">
+    <meta name="author" content="ELECTRON Robotics Team">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#07090d">
+    <meta name="color-scheme" content="dark">
+
+    <!-- Open Graph / social sharing -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="ELECTRON — FIRA Autonomous Mobile Robotics">
+    <meta property="og:title" content="ELECTRON — FIRA Autonomous Mobile Robotics">
+    <meta property="og:description" content="ELECTRON is a robotics engineering team that designed and built an autonomous mobile robot for the FIRA Robotics Competition. Second place at the Iran National FIRA Competition and qualified for the FIRA International Competition.">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:locale:alternate" content="fa_IR">
+    <meta property="og:image" content="assets/images/robot-hero.png">
+    <meta property="og:image:width" content="2048">
+    <meta property="og:image:height" content="2048">
+    <meta property="og:image:alt" content="The ELECTRON autonomous mobile robot">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="ELECTRON — FIRA Autonomous Mobile Robotics">
+    <meta name="twitter:description" content="ELECTRON is a robotics engineering team that designed and built an autonomous mobile robot for the FIRA Robotics Competition. Second place at the Iran National FIRA Competition and qualified for the FIRA International Competition.">
+    <meta name="twitter:image" content="assets/images/robot-hero.png">
+
+    <!--
+        DEPLOYMENT — after the final domain is confirmed, replace SITE_URL
+        below with the real URL (trailing slash), uncomment this block, and
+        set the same value in js/config.js → siteUrl. Social networks need
+        absolute og:image URLs, so also update og:image / twitter:image.
+
+        <link rel="canonical" href="SITE_URL">
+        <link rel="alternate" hreflang="en" href="SITE_URL?lang=en">
+        <link rel="alternate" hreflang="fa" href="SITE_URL?lang=fa">
+        <link rel="alternate" hreflang="x-default" href="SITE_URL">
+        <meta property="og:url" content="SITE_URL">
+    -->
+
+    <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
+    <link rel="preload" href="assets/fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="css/style.css">
+    <noscript><style>html.no-js body { opacity: 1; animation: none; } .media-frame .media-placeholder { display: none; }</style></noscript>
+
+    <script src="js/config.js" defer></script>
+    <script src="js/translations.js" defer></script>
+    <script src="js/app.js" defer></script>
+</head>
+<body>
+
+<!-- ═══════════ Icon sprite (inline so it also works from file://) ═══════════ -->
+<svg class="sprite" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <symbol id="i-cpu" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="1.5"/><rect x="9.5" y="9.5" width="5" height="5" rx=".5"/><path d="M9 2.5V6M12 2.5V6M15 2.5V6M9 18v3.5M12 18v3.5M15 18v3.5M2.5 9H6M2.5 12H6M2.5 15H6M18 9h3.5M18 12h3.5M18 15h3.5"/></symbol>
+        <symbol id="i-camera" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="12" cy="12" r="4.25"/><circle cx="12" cy="12" r="1.5"/><path d="M6 7.5h1.5"/></symbol>
+        <symbol id="i-board" viewBox="0 0 24 24"><rect x="2.5" y="5" width="19" height="14" rx="1.5"/><path d="M6 5V3.5M9 5V3.5M12 5V3.5M15 5V3.5M18 5V3.5M8 19v1.5M11 19v1.5M14 19v1.5"/><rect x="6" y="9" width="6" height="6" rx=".75"/><circle cx="16.5" cy="10.5" r="1"/><circle cx="16.5" cy="14.5" r="1"/></symbol>
+        <symbol id="i-driver" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7.5 7v10M16.5 7v10M7.5 12h9"/><path d="m12.75 8.5-2 3.5h2.5l-2 3.5"/></symbol>
+        <symbol id="i-servo" viewBox="0 0 24 24"><rect x="4" y="9" width="16" height="11" rx="1.5"/><circle cx="9" cy="9" r="3.5"/><path d="M9 9 15.5 4.5"/><circle cx="15.5" cy="4.5" r="1"/><path d="M14 14.5h3"/></symbol>
+        <symbol id="i-battery" viewBox="0 0 24 24"><rect x="2.5" y="7" width="17" height="10" rx="1.75"/><path d="M21.5 10.5v3"/><path d="M6 10v4M9 10v4M12 10v4"/></symbol>
+        <symbol id="i-regulator" viewBox="0 0 24 24"><path d="M3 8h4l2-3 3 6 2-3h7"/><path d="M3 17h18"/><path d="M3 13.5h18" stroke-dasharray="1.5 2"/></symbol>
+        <symbol id="i-radar" viewBox="0 0 24 24"><path d="M12 20.5a8.5 8.5 0 1 1 8.5-8.5"/><path d="M12 16.5a4.5 4.5 0 1 1 4.5-4.5"/><path d="M12 12 19 5"/><circle cx="12" cy="12" r="1"/></symbol>
+        <symbol id="i-code" viewBox="0 0 24 24"><path d="m8.5 7-5 5 5 5M15.5 7l5 5-5 5M13.5 4.5l-3 15"/></symbol>
+        <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.75-7 10-7 10 7 10 7-3.75 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3.25"/></symbol>
+        <symbol id="i-target" viewBox="0 0 24 24"><path d="M3 8V4.5A1.5 1.5 0 0 1 4.5 3H8M16 3h3.5A1.5 1.5 0 0 1 21 4.5V8M21 16v3.5a1.5 1.5 0 0 1-1.5 1.5H16M8 21H4.5A1.5 1.5 0 0 1 3 19.5V16"/><rect x="7.5" y="7.5" width="9" height="9" rx="1"/></symbol>
+        <symbol id="i-scan" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><rect x="7" y="7" width="10" height="10"/><path d="M7 10.5h3.5V7M13.5 17v-3.5H17M13.5 7v2M7 13.5h2"/></symbol>
+        <symbol id="i-chip" viewBox="0 0 24 24"><rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 9h6v6H9z"/><path d="M5 9H2.5M5 15H2.5M19 9h2.5M19 15h2.5M9 5V2.5M15 5V2.5M9 19v2.5M15 19v2.5"/></symbol>
+        <symbol id="i-layers" viewBox="0 0 24 24"><path d="m12 3 9 5-9 5-9-5 9-5Z"/><path d="m3 12.5 9 5 9-5"/><path d="m3 16.5 9 5 9-5"/></symbol>
+        <symbol id="i-route" viewBox="0 0 24 24"><circle cx="6" cy="18" r="2.25"/><circle cx="18" cy="6" r="2.25"/><path d="M8.25 18H15a3 3 0 0 0 0-6H9a3 3 0 0 1 0-6h6.75"/></symbol>
+        <symbol id="i-podium" viewBox="0 0 24 24"><path d="M2.5 21h19M8.5 21V9h7v12M2.5 21v-7h6M15.5 21v-5h6v5"/><path d="M12 3.5v2.5M10.75 5 12 3.5"/></symbol>
+        <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 3.75 5.5 3.75 9S14.5 18.5 12 21c-2.5-2.5-3.75-5.5-3.75-9S9.5 5.5 12 3Z"/></symbol>
+        <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4.5" y="10.5" width="15" height="10.5" rx="2"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/><path d="M12 14.5v2.5"/></symbol>
+        <symbol id="i-image" viewBox="0 0 24 24"><rect x="3" y="3.5" width="18" height="17" rx="2"/><circle cx="8.5" cy="9" r="1.75"/><path d="m21 16-5-5-9 9.5"/></symbol>
+        <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h15M13.5 6.5 19 12l-5.5 5.5"/></symbol>
+        <symbol id="i-arrow-down" viewBox="0 0 24 24"><path d="M12 4v15M6.5 13.5 12 19l5.5-5.5"/></symbol>
+        <symbol id="i-arrow-up" viewBox="0 0 24 24"><path d="M12 20V5M6.5 10.5 12 5l5.5 5.5"/></symbol>
+        <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+        <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+        <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></symbol>
+        <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 2.5 4.5 13.5H12l-1 8 8.5-11H12l1-8Z"/></symbol>
+        <symbol id="i-loop" viewBox="0 0 24 24"><path d="M4 12a8 8 0 0 1 14-5.3M20 12a8 8 0 0 1-14 5.3"/><path d="M18 3v4h-4M6 21v-4h4"/></symbol>
+        <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c.75-4 4-6 8-6s7.25 2 8 6"/></symbol>
+    </defs>
+</svg>
+
+<a class="skip-link" href="#main" data-i18n="a11y.skip">Skip to main content</a>
+
+<!-- ═══════════ Header / Navigation ═══════════ -->
+<header class="site-header" id="top">
+    <div class="container header-inner">
+        <a class="brand" href="#top" aria-label="ELECTRON — back to top of page" data-i18n-attr="aria-label:a11y.home">
+            <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="3.2"/><ellipse cx="16" cy="16" rx="13" ry="5.2"/><ellipse cx="16" cy="16" rx="13" ry="5.2" transform="rotate(60 16 16)"/><ellipse cx="16" cy="16" rx="13" ry="5.2" transform="rotate(-60 16 16)"/></svg></span>
+            <span class="brand-text" lang="en" dir="ltr">ELECTRON</span>
+        </a>
+
+        <nav class="main-nav" id="main-nav" aria-label="Main navigation" data-i18n-attr="aria-label:a11y.mainNav">
+            <ul class="nav-list">
+                <li><a href="#overview" data-i18n="nav.overview">Overview</a></li>
+                <li><a href="#achievements" data-i18n="nav.achievements">Achievements</a></li>
+                <li><a href="#hardware" data-i18n="nav.hardware">Hardware</a></li>
+                <li><a href="#software" data-i18n="nav.software">Software</a></li>
+                <li><a href="#architecture" data-i18n="nav.architecture">Architecture</a></li>
+                <li><a href="#team" data-i18n="nav.team">Team</a></li>
+                <li><a href="#gallery" data-i18n="nav.gallery">Gallery</a></li>
+            </ul>
+        </nav>
+
+        <div class="header-actions">
+            <div class="lang-switch" role="group" aria-label="Choose language" data-i18n-attr="aria-label:a11y.langGroup">
+                <button type="button" class="lang-btn" data-lang="en" lang="en" aria-pressed="true" aria-label="Switch to English" title="Switch to English" data-i18n-attr="aria-label:a11y.switchToEn;title:a11y.switchToEn">EN</button>
+                <button type="button" class="lang-btn" data-lang="fa" lang="fa" aria-pressed="false" aria-label="Switch to Persian" title="Switch to Persian" data-i18n-attr="aria-label:a11y.switchToFa;title:a11y.switchToFa">فا</button>
+            </div>
+            <button type="button" class="menu-toggle" aria-controls="main-nav" aria-expanded="false" aria-label="Open navigation menu" data-i18n-attr="aria-label:a11y.menuOpen">
+                <svg class="icon icon-open" aria-hidden="true"><use href="#i-menu"/></svg>
+                <svg class="icon icon-close" aria-hidden="true"><use href="#i-close"/></svg>
+            </button>
+        </div>
+    </div>
+</header>
+
+<main id="main" tabindex="-1">
+
+    <!-- ═══════════ 9.1 HERO ═══════════ -->
+    <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-grid-bg" aria-hidden="true"></div>
+        <div class="container hero-inner">
+            <div class="hero-content">
+                <p class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span><span data-i18n="hero.eyebrow">FIRA Robotics Competition</span></p>
+                <h1 class="hero-title" id="hero-title">
+                    <span class="hero-wordmark" lang="en" dir="ltr">ELECTRON</span>
+                    <span class="hero-subtitle" data-i18n="hero.subtitle">FIRA Autonomous Mobile Robotics</span>
+                </h1>
+
+                <ul class="hero-badges" aria-label="Competition achievements" data-i18n-attr="aria-label:a11y.achievements">
+                    <li class="hero-badge hero-badge--rank">
+                        <svg class="icon" aria-hidden="true"><use href="#i-podium"/></svg>
+                        <span class="hero-badge-text">
+                            <strong data-i18n="hero.badge1.value">2nd Place</strong>
+                            <span data-i18n="hero.badge1.label">Iran National FIRA Competition</span>
+                        </span>
+                    </li>
+                    <li class="hero-badge">
+                        <svg class="icon" aria-hidden="true"><use href="#i-globe"/></svg>
+                        <span class="hero-badge-text">
+                            <strong data-i18n="hero.badge2.value">Qualified</strong>
+                            <span data-i18n="hero.badge2.label">FIRA International Competition</span>
+                        </span>
+                    </li>
+                </ul>
+
+                <p class="hero-intro" data-i18n="hero.intro">ELECTRON is a robotics engineering team that designed and built an autonomous mobile robot for the FIRA Robotics Competition — integrating computer vision, embedded control, and sensor-based navigation into a single self-directed platform.</p>
+
+                <div class="hero-actions">
+                    <a class="btn btn-primary" href="#overview"><span data-i18n="hero.ctaPrimary">Explore the Robot</span><svg class="icon icon-dir" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+                    <a class="btn btn-ghost" href="#achievements" data-i18n="hero.ctaSecondary">View Achievements</a>
+                </div>
+
+                <ul class="hero-tags">
+                    <li data-i18n="hero.tag1">Computer Vision</li>
+                    <li data-i18n="hero.tag2">Embedded Control</li>
+                    <li data-i18n="hero.tag3">Autonomous Navigation</li>
+                </ul>
+            </div>
+
+            <figure class="hero-media">
+                <div class="media-frame" data-media>
+                    <span class="frame-corner tl" aria-hidden="true"></span><span class="frame-corner tr" aria-hidden="true"></span>
+                    <span class="frame-corner bl" aria-hidden="true"></span><span class="frame-corner br" aria-hidden="true"></span>
+                    <img src="assets/images/robot-hero.png" width="2048" height="2048" fetchpriority="high" decoding="async"
+                         alt="The ELECTRON autonomous mobile robot developed for the FIRA Robotics Competition" data-i18n-attr="alt:hero.imageAlt">
+                    <div class="media-placeholder" role="img" aria-label="Robot photograph pending" data-i18n-attr="aria-label:hero.placeholderTitle">
+                        <svg class="icon icon-xl" aria-hidden="true"><use href="#i-image"/></svg>
+                        <p class="ph-title" data-i18n="hero.placeholderTitle">Robot photograph pending</p>
+                        <p class="ph-file"><span data-i18n="common.expectedFile">Expected file</span>: <code dir="ltr">assets/images/robot-hero.png</code></p>
+                        <p class="ph-spec" data-i18n="hero.placeholderText">Square image, 1:1 — recommended 2048 × 2048 px</p>
+                    </div>
+                </div>
+            </figure>
+        </div>
+    </section>
+
+    <!-- ═══════════ 9.2 OVERVIEW ═══════════ -->
+    <section class="section" id="overview" aria-labelledby="overview-title">
+        <div class="container">
+            <header class="section-head reveal">
+                <p class="kicker"><span class="kicker-num" data-num>01</span><span data-i18n="overview.kicker">Project Overview</span></p>
+                <h2 id="overview-title" data-i18n="overview.title">An autonomous robot engineered for competition</h2>
+                <p class="section-lead" data-i18n="overview.lead">ELECTRON brings perception, decision-making, and control together in one mobile platform that operates without human intervention.</p>
+            </header>
+
+            <div class="overview-grid">
+                <article class="card reveal">
+                    <h3 data-i18n="overview.whatTitle">What it is</h3>
+                    <p data-i18n="overview.whatText">An autonomous mobile robot that perceives its environment, interprets visual information, and moves through a competition field on its own — combining a vision-capable main computer with dedicated embedded control.</p>
+                </article>
+                <article class="card reveal">
+                    <h3 data-i18n="overview.whyTitle">Why it was built</h3>
+                    <p data-i18n="overview.whyText">The robot was developed to compete in the FIRA Robotics Competition, where autonomous platforms are evaluated on their ability to navigate, recognize visual cues, and respond reliably under real competition conditions.</p>
+                </article>
+                <article class="card card-span reveal">
+                    <h3 data-i18n="overview.objectivesTitle">Autonomy objectives</h3>
+                    <ol class="objective-list">
+                        <li><span class="obj-num" data-num aria-hidden="true">01</span><span data-i18n="overview.obj1">Perceive the environment through onboard vision and sensing</span></li>
+                        <li><span class="obj-num" data-num aria-hidden="true">02</span><span data-i18n="overview.obj2">Recognize visual markers and objects relevant to navigation</span></li>
+                        <li><span class="obj-num" data-num aria-hidden="true">03</span><span data-i18n="overview.obj3">Make autonomous decisions in real time</span></li>
+                        <li><span class="obj-num" data-num aria-hidden="true">04</span><span data-i18n="overview.obj4">Translate decisions into controlled, precise motion</span></li>
+                        <li><span class="obj-num" data-num aria-hidden="true">05</span><span data-i18n="overview.obj5">Operate reliably under competition constraints</span></li>
+                    </ol>
+                </article>
+            </div>
+
+            <div class="overview-bottom">
+                <div class="domains reveal">
+                    <h3 class="mini-title" data-i18n="overview.domainsTitle">Engineering domains</h3>
+                    <ul class="chip-list">
+                        <li data-i18n="domain.1">Autonomous Robotics</li>
+                        <li data-i18n="domain.2">Computer Vision</li>
+                        <li data-i18n="domain.3">Image Processing</li>
+                        <li data-i18n="domain.4">Embedded Systems</li>
+                        <li data-i18n="domain.5">Sensor Integration</li>
+                        <li data-i18n="domain.6">Robotic Navigation</li>
+                        <li data-i18n="domain.7">Object Recognition</li>
+                        <li data-i18n="domain.8">Hardware/Software Integration</li>
+                    </ul>
+                </div>
+                <aside class="context-card reveal">
+                    <h3 class="mini-title" data-i18n="overview.firaTitle">Competition context</h3>
+                    <p data-i18n="overview.firaText">FIRA is an international robotics competition in which teams design robots that must operate autonomously in structured environments. ELECTRON placed second at the Iran National FIRA Competition and qualified for the FIRA International Competition.</p>
+                    <p class="pending-row"><span data-i18n="overview.firaLeague">Competition league / category</span><span class="badge-pending" data-i18n="common.pending">Pending verification</span></p>
+                </aside>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════ 9.3 ACHIEVEMENTS ═══════════ -->
+    <section class="section section-alt" id="achievements" aria-labelledby="achievements-title">
+        <div class="container">
+            <header class="section-head reveal">
+                <p class="kicker"><span class="kicker-num" data-num>02</span><span data-i18n="achievements.kicker">Competition Achievements</span></p>
+                <h2 id="achievements-title" data-i18n="achievements.title">Recognized at the national level</h2>
+                <p class="section-lead" data-i18n="achievements.lead">The ELECTRON robot's performance earned national recognition and a place in the FIRA International Competition.</p>
+            </header>
+
+            <div class="achievement-grid">
+                <article class="achievement-card achievement-card--gold reveal">
+                    <div class="achievement-top">
+                        <svg class="icon icon-lg" aria-hidden="true"><use href="#i-podium"/></svg>
+                        <span class="achievement-scope" data-i18n="ach1.scope">National Competition — Iran</span>
+                    </div>
+                    <p class="achievement-rank" data-i18n="ach1.rank">2nd</p>
+                    <h3 data-i18n="ach1.title">Second Place</h3>
+                    <p data-i18n="ach1.text">Awarded second place at the Iran National FIRA Competition in autonomous mobile robotics.</p>
+                </article>
+                <article class="achievement-card reveal">
+                    <div class="achievement-top">
+                        <svg class="icon icon-lg" aria-hidden="true"><use href="#i-globe"/></svg>
+                        <span class="achievement-scope" data-i18n="ach2.scope">FIRA International Competition</span>
+                    </div>
+                    <p class="achievement-rank achievement-rank--text" data-i18n="ach2.rank">Qualified</p>
+                    <h3 data-i18n="ach2.title">International Qualification</h3>
+                    <p data-i18n="ach2.text">Qualified to compete at the FIRA International Competition.</p>
+                </article>
+            </div>
+            <p class="pending-row pending-row--center reveal"><span data-i18n="achievements.note">Competition year, edition, and league details</span><span class="badge-pending" data-i18n="common.pending">Pending verification</span></p>
+        </div>
+    </section>
+
+    <!-- ═══════════ 9.4 HARDWARE ═══════════ -->
+    <section class="section" id="hardware" aria-labelledby="hardware-title">
+        <div class="container">
+            <header class="section-head reveal">
+                <p class="kicker"><span class="kicker-num" data-num>03</span><span data-i18n="hardware.kicker">Hardware Architecture</span></p>
+                <h2 id="hardware-title" data-i18n="hardware.title">Integrated hardware, from power to perception</h2>
+                <p class="section-lead" data-i18n="hardware.lead">The robot combines a main computer for vision and decision-making, a microcontroller for real-time control, and dedicated power, actuation, and sensing subsystems.</p>
+            </header>
+
+            <div class="hw-grid">
+                <article class="hw-card reveal">
+                    <div class="hw-head"><span class="icon-tile"><svg class="icon" aria-hidden="true"><use href="#i-cpu"/></svg></span><span class="hw-cat" data-i18n="hw.pi.cat">Main Computing Platform</span></div>
+                    <h3><bdi data-i18n="hw.pi.name">Raspberry Pi 5 (16 GB)</bdi></h3>
+                    <dl class="hw-dl">
+                        <dt data-i18n="hardware.fnLabel">Function</dt><dd data-i18n="hw.pi.fn">A single-board computer that serves as the robot's primary processing unit.</dd>
+                        <dt data-i18n="hardware.roleLabel">Role in the robot</dt><dd data-i18n="hw.pi.role">Runs the high-level software: image acquisition, image processing, computer-vision inference, and autonomous decision-making.</dd>
+                        <dt data-i18n="hardware.relLabel">Relationships</dt><dd data-i18n="hw.pi.rel">Receives image data from the camera and passes high-level commands to the Arduino Uno for low-level control.</dd>
+                    </dl>
+                </article>
+                <article class="hw-card reveal">
+                    <div class="hw-head"><span class="icon-tile"><svg class="icon" aria-hidden="true"><use href="#i-camera"/></svg></span><span class="hw-cat" data-i18n="hw.cam.cat">Vision Sensor</span></div>
+                    <h3><bdi data-i18n="hw.cam.name">Raspberry Pi Camera</bdi></h3>
+                    <dl class="hw-dl">
+                        <dt data-i18n="hardware.fnLabel">Function</dt><dd data-i18n="hw.cam.fn">Captures a live visual stream of the robot's surroundings.</dd>
+                        <dt data-i18n="hardware.roleLabel">Role in the robot</dt><dd data-i18n="hw.cam.role">Provides the primary perceptual input for marker recognition, object detection, and navigation.</dd>
+                        <dt data-i18n="hardware.relLabel">Relationships</dt><dd data-i18n="hw.cam.rel">Connected to the Raspberry Pi 5, which processes the captured frames.</dd>
+                    </dl>
+                </article>
+                <article class="hw-card reveal">
+                    <div class="hw-head"><span class="icon-tile"><svg class="icon" aria-hidden="true"><use href="#i-board"/></svg></span><span class="hw-cat" data-i18n="hw.uno.cat">Embedded Controller</span></div>
+                    <h3><bdi data-i18n="hw.uno.name">Arduino Uno</bdi></h3>
+                    <dl class="hw-dl">
+                        <dt data-i18n="hardware.fnLabel">Function</dt><dd data-i18n="hw.uno.fn">A microcontroller board dedicated to deterministic, low-level control tasks.</dd>
+                        <dt data-i18n="hardware.roleLabel">Role in the robot</dt><dd data-i18n="hw.uno.role">Handles time-sensitive actuation, offloading real-time control from the main computer.</dd>
+                        <dt data-i18n="hardware.relLabel">Relationships</dt><dd data-i18n="hw.uno.rel">Bridges the Raspberry Pi 5 and the actuation hardware — the L298 motor driver and the servo motor.</dd>
+                    </dl>
+                </article>
+                <article class="hw-card reveal">
+                    <div class="hw-head"><span class="icon-tile"><svg class="icon" aria-hidden="true"><use href="#i-driver"/></svg></span><span class="hw-cat" data-i18n="hw.l298.cat">Motor Power Stage</span></div>
+                    <h3><bdi data-i18n="hw.l298.name">L298 Motor Driver</bdi></h3>
+                    <dl class="hw-dl">
+                        <dt data-i18n="hardware.fnLabel">Function</dt><dd data-i18n="hw.l298.fn">A dual H-bridge driver that delivers controlled power to the robot's drive motors.</dd>
+                        <dt data-i18n="hardware.roleLabel">Role in the robot</dt><dd data-i18n="hw.l298.role">Converts low-power control signals into the current required for propulsion, direction, and speed control.</dd>
+                        <dt data-i18n="hardware.relLabel">Relationships</dt><dd data-i18n="hw.l298.rel">Commanded by the Arduino Uno and supplied by the battery system.</dd>
+                    </dl>
+                </article>
+                <article class="hw-card reveal">
+                    <div class="hw-head"><span class="icon-tile"><svg class="icon" aria-hidden="true"><use href="#i-servo"/></svg></span><span class="hw-cat" data-i18n="hw.servo.cat">Precision Actuator</span></div>
+                    <h3><bdi data-i18n="hw.servo.name">Servo Motor</bdi></h3>
+                    <dl class="hw-dl">
+                        <dt data-i18n="hardware.fnLabel">Function</dt><dd data-i18n="hw.servo.fn">A position-controlled actuator that moves to precise angular positions.</dd>
+                        <dt data-i18n="hardware.roleLabel">Role in the robot</dt><dd data-i18n="hw.servo.role">Provides precise angular positioning within the robot's mechanical system.</dd>
+                        <dt data-i18n="hardware.relLabel">Relationships</dt><dd data-i18n="hw.servo.rel">Positioned by control signals from the Arduino Uno.</dd>
+                    </dl>
+                </article>
+                <article class="hw-card reveal">
+                    <div class="hw-head"><span class="icon-tile"><svg class="icon" aria-hidden="true"><use href="#i-battery"/></svg></span><span class="hw-cat" data-i18n="hw.batt.cat">Energy Source</span></div>
+                    <h3><bdi data-i18n="hw.batt.name">Li-ion Battery System</bdi></h3>
+                    <dl class="hw-dl">
+                        <dt data-i18n="hardware.fnLabel">Function</dt><dd data-i18n="hw.batt.fn">Rechargeable lithium-ion cells that supply onboard energy.</dd>
+                        <dt data-i18n="hardware.roleLabel">Role in the robot</dt><dd data-i18n="hw.batt.role">Enables untethered, autonomous operation throughout a competition run.</dd>
+                        <dt data-i18n="hardware.relLabel">Relationships</dt><dd data-i18n="hw.batt.rel">Supplies the entire robot; voltage regulation adapts its output to each subsystem.</dd>
+                    </dl>
+                </article>
+                <article class="hw-card reveal">
+                    <div class="hw-head"><span class="icon-tile"><svg class="icon" aria-hidden="true"><use href="#i-regulator"/></svg></span><span class="hw-cat" data-i18n="hw.dcdc.cat">Power Conditioning</span></div>
+                    <h3><bdi data-i18n="hw.dcdc.name">DC-DC Voltage Regulation</bdi></h3>
+                    <dl class="hw-dl">
+                        <dt data-i18n="hardware.fnLabel">Function</dt><dd data-i18n="hw.dcdc.fn">Converts battery voltage into the stable supply levels the electronics require.</dd>
+                        <dt data-i18n="hardware.roleLabel">Role in the robot</dt><dd data-i18n="hw.dcdc.role">Protects sensitive computing hardware and keeps it stable under changing motor loads.</dd>
+                        <dt data-i18n="hardware.relLabel">Relationships</dt><dd data-i18n="hw.dcdc.rel">Sits between the battery system and the computing and control electronics.</dd>
+                    </dl>
+                </article>
+                <article class="hw-card reveal">
+                    <div class="hw-head"><span class="icon-tile"><svg class="icon" aria-hidden="true"><use href="#i-radar"/></svg></span><span class="hw-cat" data-i18n="hw.obs.cat">Proximity Sensing</span></div>
+                    <h3><bdi data-i18n="hw.obs.name">Obstacle Detection Sensor</bdi></h3>
+                    <dl class="hw-dl">
+                        <dt data-i18n="hardware.fnLabel">Function</dt><dd data-i18n="hw.obs.fn">Detects objects in the robot's path.</dd>
+                        <dt data-i18n="hardware.roleLabel">Role in the robot</dt><dd data-i18n="hw.obs.role">Adds a sensing layer, independent of the camera, for collision-aware navigation.</dd>
+                        <dt data-i18n="hardware.relLabel">Relationships</dt><dd data-i18n="hw.obs.rel">Its readings feed the control system so the robot can react to obstacles.</dd>
+                    </dl>
+                </article>
+            </div>
+            <p class="section-note reveal"><span class="badge-pending" data-i18n="common.pending">Pending verification</span><span data-i18n="hardware.note">Relationships are shown conceptually. Exact electrical connections and specifications are intentionally omitted; the final competition configuration is pending verification.</span></p>
+        </div>
+    </section>
+
+    <!-- ═══════════ 9.5 SOFTWARE ═══════════ -->
+    <section class="section section-alt" id="software" aria-labelledby="software-title">
+        <div class="container">
+            <header class="section-head reveal">
+                <p class="kicker"><span class="kicker-num" data-num>04</span><span data-i18n="software.kicker">Software &amp; Technologies</span></p>
+                <h2 id="software-title" data-i18n="software.title">The technology behind autonomy</h2>
+                <p class="section-lead" data-i18n="software.lead">A software stack built around real-time vision, embedded control, and autonomous behavior.</p>
+            </header>
+
+            <div class="sw-grid">
+                <article class="sw-card reveal">
+                    <span class="icon-tile"><svg class="icon" aria-hidden="true"><use href="#i-code"/></svg></span>
+                    <div><p class="sw-cat" data-i18n="sw.python.cat">Programming Language</p><h3><bdi data-i18n="sw.python.name">Python</bdi></h3></div>
+                    <p data-i18n="sw.python.text">The primary language of the robot's high-level software, chosen for its mature ecosystem in vision, machine learning, and rapid engineering iteration.</p>
+                </article>
+                <article class="sw-card reveal">
+                    <span class="icon-tile"><svg class="icon" aria-hidden="true"><use href="#i-eye"/></svg></span>
+                    <div><p class="sw-cat" data-i18n="sw.opencv.cat">Vision Library</p><h3><bdi data-i18n="sw.opencv.name">OpenCV</bdi></h3></div>
+                    <p data-i18n="sw.opencv.text">The open-source computer-vision library used for image acquisition, preprocessing, and classical vision operations.</p>
+                </article>
+                <article class="sw-card reveal">
+                    <span class="icon-tile"><svg class="icon" aria-hidden="true"><use href="#i-target"/></svg></span>
+                    <div><p class="sw-cat" data-i18n="sw.yolo.cat">Object Detection</p><h3><bdi data-i18n="sw.yolo.name">YOLO</bdi></h3></div>
+                    <p data-i18n="sw.yolo.text">A real-time deep-learning object-detection architecture, used to recognize relevant objects within the camera stream.</p>
+                </article>
+                <article class="sw-card reveal">
+                    <span class="icon-tile"><svg class="icon" aria-hidden="true"><use href="#i-scan"/></svg></span>
+                    <div><p class="sw-cat" data-i18n="sw.cv.cat">Perception</p><h3><bdi data-i18n="sw.cv.name">Computer Vision</bdi></h3></div>
+                    <p data-i18n="sw.cv.text">Allows the robot to interpret its surroundings from images — including standardized visual fiducial markers (AprilTag) used for navigation and traffic-related instructions.</p>
+                </article>
+                <article class="sw-card reveal">
+                    <span class="icon-tile"><svg class="icon" aria-hidden="true"><use href="#i-chip"/></svg></span>
+                    <div><p class="sw-cat" data-i18n="sw.emb.cat">Real-Time Control</p><h3><bdi data-i18n="sw.emb.name">Embedded Systems</bdi></h3></div>
+                    <p data-i18n="sw.emb.text">Microcontroller-based control that handles direct, time-critical interaction with motors and actuators reliably.</p>
+                </article>
+                <article class="sw-card reveal">
+                    <span class="icon-tile"><svg class="icon" aria-hidden="true"><use href="#i-layers"/></svg></span>
+                    <div><p class="sw-cat" data-i18n="sw.img.cat">Signal Processing</p><h3><bdi data-i18n="sw.img.name">Image Processing</bdi></h3></div>
+                    <p data-i18n="sw.img.text">Techniques that clean, enhance, and transform raw camera frames into information the robot can act on.</p>
+                </article>
+                <article class="sw-card sw-card--wide reveal">
+                    <span class="icon-tile"><svg class="icon" aria-hidden="true"><use href="#i-route"/></svg></span>
+                    <div><p class="sw-cat" data-i18n="sw.auto.cat">System Integration</p><h3><bdi data-i18n="sw.auto.name">Autonomous Robotics</bdi></h3></div>
+                    <p data-i18n="sw.auto.text">The integration of perception, decision-making, and control into a robot that operates without human intervention.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════ 9.6 ARCHITECTURE ═══════════ -->
+    <section class="section" id="architecture" aria-labelledby="architecture-title">
+        <div class="container">
+            <header class="section-head reveal">
+                <p class="kicker"><span class="kicker-num" data-num>05</span><span data-i18n="arch.kicker">System Architecture</span></p>
+                <h2 id="architecture-title" data-i18n="arch.title">From perception to motion</h2>
+                <p class="section-lead" data-i18n="arch.lead">A high-level view of how information flows through the robot — from sensing the environment to executing motion.</p>
+            </header>
+
+            <div class="arch reveal">
+                <ol class="arch-flow">
+                    <li class="arch-node">
+                        <span class="arch-step" data-num aria-hidden="true">01</span>
+                        <svg class="icon" aria-hidden="true"><use href="#i-camera"/></svg>
+                        <h3 data-i18n="arch.n1.title">Camera &amp; Sensing</h3>
+                        <p data-i18n="arch.n1.text">The camera and obstacle sensing capture the state of the environment.</p>
+                        <span class="arch-hw" data-i18n="arch.sensingHw">Camera · Obstacle sensor</span>
+                    </li>
+                    <li class="arch-arrow" aria-hidden="true"><svg class="icon icon-dir"><use href="#i-arrow"/></svg></li>
+                    <li class="arch-group">
+                        <p class="arch-group-label"><span data-i18n="arch.compute">Main computing platform</span> · <bdi data-i18n="arch.computeHw">Raspberry Pi 5</bdi></p>
+                        <ol class="arch-group-flow">
+                            <li class="arch-node arch-node--inner">
+                                <span class="arch-step" data-num aria-hidden="true">02</span>
+                                <svg class="icon" aria-hidden="true"><use href="#i-layers"/></svg>
+                                <h3 data-i18n="arch.n2.title">Image Processing</h3>
+                                <p data-i18n="arch.n2.text">Frames are processed and analyzed to extract visual information.</p>
+                            </li>
+                            <li class="arch-arrow" aria-hidden="true"><svg class="icon icon-dir"><use href="#i-arrow"/></svg></li>
+                            <li class="arch-node arch-node--inner">
+                                <span class="arch-step" data-num aria-hidden="true">03</span>
+                                <svg class="icon" aria-hidden="true"><use href="#i-route"/></svg>
+                                <h3 data-i18n="arch.n3.title">Decision-Making</h3>
+                                <p data-i18n="arch.n3.text">Perception results are interpreted to select the robot's next action.</p>
+                            </li>
+                        </ol>
+                    </li>
+                    <li class="arch-arrow" aria-hidden="true"><svg class="icon icon-dir"><use href="#i-arrow"/></svg></li>
+                    <li class="arch-node">
+                        <span class="arch-step" data-num aria-hidden="true">04</span>
+                        <svg class="icon" aria-hidden="true"><use href="#i-board"/></svg>
+                        <h3 data-i18n="arch.n4.title">Embedded Control</h3>
+                        <p data-i18n="arch.n4.text">High-level commands become precise, time-critical control signals.</p>
+                        <bdi class="arch-hw" data-i18n="arch.controlHw">Arduino Uno</bdi>
+                    </li>
+                    <li class="arch-arrow" aria-hidden="true"><svg class="icon icon-dir"><use href="#i-arrow"/></svg></li>
+                    <li class="arch-node">
+                        <span class="arch-step" data-num aria-hidden="true">05</span>
+                        <svg class="icon" aria-hidden="true"><use href="#i-servo"/></svg>
+                        <h3 data-i18n="arch.n5.title">Actuation</h3>
+                        <p data-i18n="arch.n5.text">The drive motors and servo execute the motion.</p>
+                        <span class="arch-hw" data-i18n="arch.actuationHw">L298 · Motors · Servo</span>
+                    </li>
+                </ol>
+
+                <div class="arch-loop">
+                    <svg class="icon" aria-hidden="true"><use href="#i-loop"/></svg>
+                    <p data-i18n="arch.loop">Closed perception–action loop: the robot continuously senses the results of its own motion.</p>
+                </div>
+
+                <div class="arch-power">
+                    <svg class="icon" aria-hidden="true"><use href="#i-bolt"/></svg>
+                    <div>
+                        <h3 data-i18n="arch.powerTitle">Power subsystem</h3>
+                        <p data-i18n="arch.powerText">Li-ion battery and DC-DC voltage regulation supply every subsystem.</p>
+                    </div>
+                </div>
+            </div>
+            <p class="section-note reveal"><svg class="icon icon-sm" aria-hidden="true"><use href="#i-lock"/></svg><span data-i18n="arch.note">Conceptual diagram. Algorithms, control logic, and implementation details are intentionally omitted.</span></p>
+        </div>
+    </section>
+
+    <!-- ═══════════ 9.7 CHALLENGES ═══════════ -->
+    <section class="section section-alt" id="challenges" aria-labelledby="challenges-title">
+        <div class="container">
+            <header class="section-head reveal">
+                <p class="kicker"><span class="kicker-num" data-num>06</span><span data-i18n="challenges.kicker">Engineering Challenges</span></p>
+                <h2 id="challenges-title" data-i18n="challenges.title">Engineering problems worth solving</h2>
+                <p class="section-lead" data-i18n="challenges.lead">Autonomous robots must work reliably outside the lab. The challenges below will be documented once the team confirms the details.</p>
+            </header>
+
+            <div class="challenge-grid">
+                <article class="challenge-card reveal">
+                    <div class="challenge-head"><span class="challenge-num" data-num aria-hidden="true">01</span><span class="badge-pending" data-i18n="common.pending">Pending verification</span></div>
+                    <h3 data-i18n="ch.1">Sensor Reliability</h3>
+                    <dl><dt data-i18n="challenges.challengeLabel">Challenge</dt><dd data-i18n="challenges.placeholder">Details awaiting confirmation by the team.</dd><dt data-i18n="challenges.approachLabel">Approach &amp; outcome</dt><dd data-i18n="challenges.placeholder">Details awaiting confirmation by the team.</dd></dl>
+                </article>
+                <article class="challenge-card reveal">
+                    <div class="challenge-head"><span class="challenge-num" data-num aria-hidden="true">02</span><span class="badge-pending" data-i18n="common.pending">Pending verification</span></div>
+                    <h3 data-i18n="ch.2">Navigation</h3>
+                    <dl><dt data-i18n="challenges.challengeLabel">Challenge</dt><dd data-i18n="challenges.placeholder">Details awaiting confirmation by the team.</dd><dt data-i18n="challenges.approachLabel">Approach &amp; outcome</dt><dd data-i18n="challenges.placeholder">Details awaiting confirmation by the team.</dd></dl>
+                </article>
+                <article class="challenge-card reveal">
+                    <div class="challenge-head"><span class="challenge-num" data-num aria-hidden="true">03</span><span class="badge-pending" data-i18n="common.pending">Pending verification</span></div>
+                    <h3 data-i18n="ch.3">Environmental Interference</h3>
+                    <dl><dt data-i18n="challenges.challengeLabel">Challenge</dt><dd data-i18n="challenges.placeholder">Details awaiting confirmation by the team.</dd><dt data-i18n="challenges.approachLabel">Approach &amp; outcome</dt><dd data-i18n="challenges.placeholder">Details awaiting confirmation by the team.</dd></dl>
+                </article>
+                <article class="challenge-card reveal">
+                    <div class="challenge-head"><span class="challenge-num" data-num aria-hidden="true">04</span><span class="badge-pending" data-i18n="common.pending">Pending verification</span></div>
+                    <h3 data-i18n="ch.4">Computer Vision Performance</h3>
+                    <dl><dt data-i18n="challenges.challengeLabel">Challenge</dt><dd data-i18n="challenges.placeholder">Details awaiting confirmation by the team.</dd><dt data-i18n="challenges.approachLabel">Approach &amp; outcome</dt><dd data-i18n="challenges.placeholder">Details awaiting confirmation by the team.</dd></dl>
+                </article>
+                <article class="challenge-card reveal">
+                    <div class="challenge-head"><span class="challenge-num" data-num aria-hidden="true">05</span><span class="badge-pending" data-i18n="common.pending">Pending verification</span></div>
+                    <h3 data-i18n="ch.5">Real-Time Processing</h3>
+                    <dl><dt data-i18n="challenges.challengeLabel">Challenge</dt><dd data-i18n="challenges.placeholder">Details awaiting confirmation by the team.</dd><dt data-i18n="challenges.approachLabel">Approach &amp; outcome</dt><dd data-i18n="challenges.placeholder">Details awaiting confirmation by the team.</dd></dl>
+                </article>
+                <article class="challenge-card reveal">
+                    <div class="challenge-head"><span class="challenge-num" data-num aria-hidden="true">06</span><span class="badge-pending" data-i18n="common.pending">Pending verification</span></div>
+                    <h3 data-i18n="ch.6">Hardware Integration</h3>
+                    <dl><dt data-i18n="challenges.challengeLabel">Challenge</dt><dd data-i18n="challenges.placeholder">Details awaiting confirmation by the team.</dd><dt data-i18n="challenges.approachLabel">Approach &amp; outcome</dt><dd data-i18n="challenges.placeholder">Details awaiting confirmation by the team.</dd></dl>
+                </article>
+                <article class="challenge-card reveal">
+                    <div class="challenge-head"><span class="challenge-num" data-num aria-hidden="true">07</span><span class="badge-pending" data-i18n="common.pending">Pending verification</span></div>
+                    <h3 data-i18n="ch.7">System Stability</h3>
+                    <dl><dt data-i18n="challenges.challengeLabel">Challenge</dt><dd data-i18n="challenges.placeholder">Details awaiting confirmation by the team.</dd><dt data-i18n="challenges.approachLabel">Approach &amp; outcome</dt><dd data-i18n="challenges.placeholder">Details awaiting confirmation by the team.</dd></dl>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════ 9.8 TEAM ═══════════ -->
+    <section class="section" id="team" aria-labelledby="team-title">
+        <div class="container">
+            <header class="section-head reveal">
+                <p class="kicker"><span class="kicker-num" data-num>07</span><span data-i18n="team.kicker">Team</span></p>
+                <h2 id="team-title" data-i18n="team.title">The people behind ELECTRON</h2>
+                <p class="section-lead" data-i18n="team.lead">A focused team combining engineering work with experienced coaching.</p>
+            </header>
+
+            <div class="team-grid">
+                <article class="team-card team-card--brand reveal">
+                    <span class="avatar avatar--brand" aria-hidden="true"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="3.2"/><ellipse cx="16" cy="16" rx="13" ry="5.2"/><ellipse cx="16" cy="16" rx="13" ry="5.2" transform="rotate(60 16 16)"/><ellipse cx="16" cy="16" rx="13" ry="5.2" transform="rotate(-60 16 16)"/></svg></span>
+                    <h3 lang="en" dir="ltr" data-i18n="team.electronName">ELECTRON</h3>
+                    <p class="team-role" data-i18n="team.electronRole">Robotics Engineering Team</p>
+                    <p class="team-meta" data-i18n="team.electronText">FIRA Autonomous Mobile Robotics</p>
+                </article>
+                <article class="team-card reveal">
+                    <span class="avatar" aria-hidden="true">AN</span>
+                    <h3 data-i18n="team.amirName">Amirali Noorani</h3>
+                    <p class="team-role" data-i18n="team.memberRole">Team Member</p>
+                    <p class="pending-row"><span data-i18n="team.respPending">Responsibilities</span><span class="badge-pending" data-i18n="common.pending">Pending verification</span></p>
+                </article>
+                <article class="team-card reveal">
+                    <span class="avatar" aria-hidden="true">MF</span>
+                    <h3 data-i18n="team.matinName">Matin Fakhim</h3>
+                    <p class="team-role" data-i18n="team.memberRole">Team Member</p>
+                    <p class="pending-row"><span data-i18n="team.respPending">Responsibilities</span><span class="badge-pending" data-i18n="common.pending">Pending verification</span></p>
+                </article>
+                <article class="team-card reveal">
+                    <span class="avatar avatar--coach" aria-hidden="true">HR</span>
+                    <h3 data-i18n="team.coachName">Hamidreza Ramezani</h3>
+                    <p class="team-role" data-i18n="team.coachRole">Coach</p>
+                    <p class="pending-row"><span data-i18n="team.respPending">Responsibilities</span><span class="badge-pending" data-i18n="common.pending">Pending verification</span></p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════ 9.9 PERSONAL CONTRIBUTIONS ═══════════ -->
+    <section class="section section-alt" id="contributions" aria-labelledby="contrib-title">
+        <div class="container">
+            <div class="contrib-layout">
+                <header class="section-head reveal">
+                    <p class="kicker"><span class="kicker-num" data-num>08</span><span data-i18n="contrib.kicker">Personal Contributions</span></p>
+                    <h2 id="contrib-title" data-i18n="contrib.title">Amirali Noorani</h2>
+                    <p class="section-lead" data-i18n="contrib.lead">This section documents Amirali Noorani's engineering contributions to the ELECTRON robot.</p>
+                    <p class="notice-inline"><svg class="icon icon-sm" aria-hidden="true"><use href="#i-clock"/></svg><span data-i18n="contrib.notice">The contribution areas below are candidates awaiting confirmation. Only verified contributions will be presented as confirmed.</span></p>
+                </header>
+                <ul class="contrib-list reveal">
+                    <li><span class="contrib-num" data-num aria-hidden="true">01</span><span class="contrib-name" data-i18n="contrib.c1">Robotics Software Development</span><span class="badge-pending" data-i18n="common.pending">Pending verification</span></li>
+                    <li><span class="contrib-num" data-num aria-hidden="true">02</span><span class="contrib-name" data-i18n="contrib.c2">Computer Vision</span><span class="badge-pending" data-i18n="common.pending">Pending verification</span></li>
+                    <li><span class="contrib-num" data-num aria-hidden="true">03</span><span class="contrib-name" data-i18n="contrib.c3">Image Processing</span><span class="badge-pending" data-i18n="common.pending">Pending verification</span></li>
+                    <li><span class="contrib-num" data-num aria-hidden="true">04</span><span class="contrib-name" data-i18n="contrib.c4">Raspberry Pi Integration</span><span class="badge-pending" data-i18n="common.pending">Pending verification</span></li>
+                    <li><span class="contrib-num" data-num aria-hidden="true">05</span><span class="contrib-name" data-i18n="contrib.c5">Embedded Systems</span><span class="badge-pending" data-i18n="common.pending">Pending verification</span></li>
+                    <li><span class="contrib-num" data-num aria-hidden="true">06</span><span class="contrib-name" data-i18n="contrib.c6">Hardware/Software Integration</span><span class="badge-pending" data-i18n="common.pending">Pending verification</span></li>
+                    <li><span class="contrib-num" data-num aria-hidden="true">07</span><span class="contrib-name" data-i18n="contrib.c7">System Testing</span><span class="badge-pending" data-i18n="common.pending">Pending verification</span></li>
+                    <li><span class="contrib-num" data-num aria-hidden="true">08</span><span class="contrib-name" data-i18n="contrib.c8">Debugging &amp; Optimization</span><span class="badge-pending" data-i18n="common.pending">Pending verification</span></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════ 9.10 GALLERY ═══════════ -->
+    <section class="section" id="gallery" aria-labelledby="gallery-title">
+        <div class="container">
+            <header class="section-head reveal">
+                <p class="kicker"><span class="kicker-num" data-num>09</span><span data-i18n="gallery.kicker">Project Gallery</span></p>
+                <h2 id="gallery-title" data-i18n="gallery.title">Project gallery</h2>
+                <p class="section-lead" data-i18n="gallery.lead">Further photographs from the build, the competition, and the team will be added as they are approved for publication.</p>
+            </header>
+
+            <div class="gallery-grid">
+                <figure class="gallery-item gallery-item--main reveal">
+                    <button type="button" class="gallery-open media-frame" data-media data-open-viewer aria-label="Open the robot photograph in full size" data-i18n-attr="aria-label:a11y.openImage">
+                        <img src="assets/images/robot-hero.png" width="2048" height="2048" loading="lazy" decoding="async"
+                             alt="The ELECTRON autonomous mobile robot developed for the FIRA Robotics Competition" data-i18n-attr="alt:hero.imageAlt">
+                        <span class="media-placeholder">
+                            <svg class="icon icon-xl" aria-hidden="true"><use href="#i-image"/></svg>
+                            <span class="ph-title" data-i18n="hero.placeholderTitle">Robot photograph pending</span>
+                            <code class="ph-file" dir="ltr">assets/images/robot-hero.png</code>
+                        </span>
+                    </button>
+                    <figcaption data-i18n="gallery.mainCaption">ELECTRON — primary robot photograph</figcaption>
+                </figure>
+                <figure class="gallery-item gallery-ph reveal">
+                    <div class="gallery-ph-box"><svg class="icon icon-lg" aria-hidden="true"><use href="#i-image"/></svg><span data-i18n="gallery.placeholder">Photograph to be added</span></div>
+                    <figcaption data-i18n="gallery.p1">Robot Construction</figcaption>
+                </figure>
+                <figure class="gallery-item gallery-ph reveal">
+                    <div class="gallery-ph-box"><svg class="icon icon-lg" aria-hidden="true"><use href="#i-image"/></svg><span data-i18n="gallery.placeholder">Photograph to be added</span></div>
+                    <figcaption data-i18n="gallery.p2">Competition Environment</figcaption>
+                </figure>
+                <figure class="gallery-item gallery-ph reveal">
+                    <div class="gallery-ph-box"><svg class="icon icon-lg" aria-hidden="true"><use href="#i-image"/></svg><span data-i18n="gallery.placeholder">Photograph to be added</span></div>
+                    <figcaption data-i18n="gallery.p3">Team Activities</figcaption>
+                </figure>
+                <figure class="gallery-item gallery-ph reveal">
+                    <div class="gallery-ph-box"><svg class="icon icon-lg" aria-hidden="true"><use href="#i-image"/></svg><span data-i18n="gallery.placeholder">Photograph to be added</span></div>
+                    <figcaption data-i18n="gallery.p4">Engineering Process</figcaption>
+                </figure>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════ 9.11 CONFIDENTIALITY ═══════════ -->
+    <section class="section section-tight" id="confidentiality" aria-labelledby="conf-title">
+        <div class="container">
+            <div class="conf-card reveal">
+                <span class="icon-tile icon-tile--lg"><svg class="icon icon-lg" aria-hidden="true"><use href="#i-lock"/></svg></span>
+                <div>
+                    <p class="kicker"><span class="kicker-num" data-num>10</span><span data-i18n="conf.kicker">Confidentiality Notice</span></p>
+                    <h2 id="conf-title" data-i18n="conf.title">Source code is intentionally not published</h2>
+                    <p data-i18n="conf.p1">The robot's source code, algorithms, and proprietary implementation details are intentionally not published due to competition confidentiality requirements.</p>
+                    <p data-i18n="conf.p2">This portfolio presents the project's architecture, technologies, and achievements at a level that communicates its engineering scope without disclosing sensitive information.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<!-- ═══════════ 9.12 FOOTER ═══════════ -->
+<footer class="site-footer">
+    <div class="container footer-grid">
+        <div class="footer-brand">
+            <a class="brand" href="#top" aria-label="ELECTRON — back to top of page" data-i18n-attr="aria-label:a11y.home">
+                <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="3.2"/><ellipse cx="16" cy="16" rx="13" ry="5.2"/><ellipse cx="16" cy="16" rx="13" ry="5.2" transform="rotate(60 16 16)"/><ellipse cx="16" cy="16" rx="13" ry="5.2" transform="rotate(-60 16 16)"/></svg></span>
+                <span class="brand-text" lang="en" dir="ltr">ELECTRON</span>
+            </a>
+            <p class="footer-tagline" data-i18n="footer.tagline">FIRA Autonomous Mobile Robotics</p>
+            <p class="footer-achievement"><svg class="icon icon-sm" aria-hidden="true"><use href="#i-podium"/></svg><span data-i18n="footer.achievement">2nd Place — Iran National FIRA Competition · Qualified for the FIRA International Competition</span></p>
+        </div>
+
+        <nav class="footer-nav" aria-label="Footer navigation" data-i18n-attr="aria-label:a11y.footerNav">
+            <h2 class="footer-title" data-i18n="footer.navTitle">Navigate</h2>
+            <ul>
+                <li><a href="#overview" data-i18n="nav.overview">Overview</a></li>
+                <li><a href="#achievements" data-i18n="nav.achievements">Achievements</a></li>
+                <li><a href="#hardware" data-i18n="nav.hardware">Hardware</a></li>
+                <li><a href="#software" data-i18n="nav.software">Software</a></li>
+                <li><a href="#architecture" data-i18n="nav.architecture">Architecture</a></li>
+                <li><a href="#challenges" data-i18n="nav.challenges">Challenges</a></li>
+                <li><a href="#team" data-i18n="nav.team">Team</a></li>
+                <li><a href="#contributions" data-i18n="nav.contributions">Contributions</a></li>
+                <li><a href="#gallery" data-i18n="nav.gallery">Gallery</a></li>
+                <li><a href="#confidentiality" data-i18n="nav.confidentiality">Confidentiality</a></li>
+            </ul>
+        </nav>
+
+        <div class="footer-lang">
+            <h2 class="footer-title" data-i18n="footer.langTitle">Language</h2>
+            <div class="lang-switch" role="group" aria-label="Choose language" data-i18n-attr="aria-label:a11y.langGroup">
+                <button type="button" class="lang-btn" data-lang="en" lang="en" aria-pressed="true" aria-label="Switch to English" title="Switch to English" data-i18n-attr="aria-label:a11y.switchToEn;title:a11y.switchToEn">English</button>
+                <button type="button" class="lang-btn" data-lang="fa" lang="fa" aria-pressed="false" aria-label="Switch to Persian" title="Switch to Persian" data-i18n-attr="aria-label:a11y.switchToFa;title:a11y.switchToFa">فارسی</button>
+            </div>
+            <button type="button" class="link-btn" data-reset-lang data-i18n="footer.reset">Reset language preference</button>
+            <p class="reset-status" role="status" aria-live="polite"></p>
+        </div>
+    </div>
+    <div class="container footer-bottom">
+        <p data-i18n="footer.copyright" data-year>© 2026 ELECTRON Robotics Team. All rights reserved.</p>
+        <p class="footer-notice"><svg class="icon icon-sm" aria-hidden="true"><use href="#i-lock"/></svg><span data-i18n="footer.notice">Robot source code is not published due to competition confidentiality.</span></p>
+    </div>
+</footer>
+
+<a class="to-top" href="#top" aria-label="Back to top" title="Back to top" data-i18n-attr="aria-label:a11y.backToTop;title:a11y.backToTop">
+    <svg class="icon" aria-hidden="true"><use href="#i-arrow-up"/></svg>
+</a>
+
+<!-- Image viewer -->
+<dialog class="viewer" id="viewer" aria-label="ELECTRON">
+    <button type="button" class="viewer-close" data-close-viewer aria-label="Close image viewer" data-i18n-attr="aria-label:a11y.closeDialog">
+        <svg class="icon" aria-hidden="true"><use href="#i-close"/></svg>
+    </button>
+    <img src="" alt="" class="viewer-img">
+</dialog>
+
+</body>
+</html>

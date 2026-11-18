@@ -1,0 +1,8 @@
+# ELECTRON — FIRA Autonomous Mobile Robotics
+# Public engineering portfolio robots.txt
+User-agent: *
+Allow: /
+
+# After confirming the final deployment URL (e.g. https://nooranidev.github.io/electron-fira-autonomous-car/),
+# uncomment the line below and replace SITE_URL with the confirmed URL:
+# Sitemap: SITE_URL/sitemap.xml

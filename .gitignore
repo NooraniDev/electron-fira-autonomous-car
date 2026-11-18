@@ -1,0 +1,34 @@
+# Operating system & editor files
+.DS_Store
+Thumbs.db
+Desktop.ini
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+
+# Local environment & secrets (never commit credentials or private configs)
+.env
+.env.*
+*.pem
+*.key
+*.secret
+secrets/
+private/
+
+# Robot software & proprietary competition artifacts (confidential — never publish)
+*.pt
+*.onnx
+*.tflite
+*.engine
+*.weights
+*.h5
+*.bag
+*.rosbag
+
+# Node / Python temporary files (if used for local testing)
+node_modules/
+__pycache__/
+*.pyc
+.pytest_cache/
